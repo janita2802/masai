@@ -89,57 +89,55 @@ const products = [
         image: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
         rating: 2.9
     }
-   
 ];
 
-let container= document.getElementById("container");
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("container");
 
-let createcard = ( id, title, price, description, category, imagerating) => {
-    const card =document.createElement("div");
-    card.className = "card";
-    card.style= "border:solid black";
+    const createCard = ({ image, title, category, description, price, rating }) => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-    const image = document.createElement("img");
-    image.src = products.image;
-    image.alt = title;
+        const img = document.createElement("img");
+        img.src = image;
+        img.alt = title;
 
-    const cardcontent = document.createElement("div");
-    cardcontent.className = "content";
+        const cardContent = document.createElement("div");
+        cardContent.className = "card-content";
 
-    const cardtitle = document.createElement("h1");
-    cardtitle.className = "title";
-    cardtitle.textContent = title;
+        const cardTitle = document.createElement("h3");
+        cardTitle.textContent = title;
 
+        const cardCategory = document.createElement("p");
+        cardCategory.className = "category";
+        cardCategory.textContent = category;
 
-    const cardcategory = document.createElement("p");
-    cardcategory.className = "category";
-    cardcategory.textContent = category;
+        const cardDescription = document.createElement("p");
+        cardDescription.className = "desc";
+        cardDescription.textContent = description;
 
+        const cardPrice = document.createElement("p");
+        cardPrice.className = "price";
+        cardPrice.textContent = `$${price}`;
 
-    const carddescription = document.createElement("p");
-    carddescription.className = "desc";
-    carddescription.textContent = description;
+        const cardRating = document.createElement("p");
+        cardRating.className = "rating";
+        cardRating.textContent = `Rating: ${rating}`;
 
-    const cardprice = document.createElement("p");
-    cardprice.className = "price";
-    cardprice.textContent = price;
+        cardContent.appendChild(cardTitle);
+        cardContent.appendChild(cardCategory);
+        cardContent.appendChild(cardDescription);
+        cardContent.appendChild(cardPrice);
+        cardContent.appendChild(cardRating);
 
-    const cardrating = document.createElement("p");
-    cardrating.className = "rating";
-    cardrating.textContent = imagerating;
+        card.appendChild(img);
+        card.appendChild(cardContent);
 
-    cardcontent.append(cardtitle);
-    cardcontent.append(cardcategory);
-    cardcontent.append(carddescription);
-    cardcontent.append(cardprice);
-    cardcontent.append(cardrating);
-    card.append(image);
-    card.append(cardcontent);
+        return card;
+    };
 
-return card;
-}
-
-products.forEach((cardinfo) => {
-    let card = createcard(cardinfo.id,cardinfo.image,cardinfo.cardcontent);
-    container.append(card);
+    products.forEach(product => {
+        const card = createCard(product);
+        container.appendChild(card);
+    });
 });
